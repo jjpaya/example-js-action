@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: jjpaya/example-js-action
+        uses: jjpaya/example-js-action@v1.1
         with:
           who-to-greet: 'jjpaya'
       # Use the output from the `hello` step
