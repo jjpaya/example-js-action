@@ -19,6 +19,7 @@ function splitFrase(f) {
 }
 
 async function makeMeme() {
+  console.log(result);
   const ok = result === 'success';
   fposit = splitFrase(fposit);
   fnegat = splitFrase(fnegat);
