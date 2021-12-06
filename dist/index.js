@@ -5552,6 +5552,14 @@ function Node (value, prev, next, list) {
 
 /***/ }),
 
+/***/ 396:
+/***/ ((module) => {
+
+module.exports = eval("require")("@actions/core");
+
+
+/***/ }),
+
 /***/ 500:
 /***/ ((module) => {
 
@@ -5674,8 +5682,8 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const util = __nccwpck_require__(837);
-//const core = require('@actions/core');
-const core = {getInput(){return '';},setOutput() {}}
+const core = __nccwpck_require__(396);
+//const core = {getInput(){return '';},setOutput() {}}
 const memeMaker = util.promisify(__nccwpck_require__(612));
 
 let fposit = core.getInput('frase_positiva')+'';
@@ -5707,7 +5715,7 @@ async function makeMeme() {
       font: 'res/impact.ttf'
     });
   } catch (e) {
-    console.error(e);
+    console.error('Error:', e);
     core.setOutput('result', "Meme NO Añadido al Readme");
     process.exit(1);
   }
