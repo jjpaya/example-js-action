@@ -23,6 +23,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - run: sudo apt-get install -y graphicsmagick
       - uses: jjpaya/example-js-action@v3
         with:
           frase_positiva: 'Los tests han funcionado y lo sabes'
