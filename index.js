@@ -1,6 +1,6 @@
 const util = require('util');
-//const core = require('@actions/core');
-const core = {getInput(){return '';},setOutput() {}}
+const core = require('@actions/core');
+//const core = {getInput(){return '';},setOutput() {}}
 const memeMaker = util.promisify(require('meme-maker'));
 
 let fposit = core.getInput('frase_positiva')+'';
