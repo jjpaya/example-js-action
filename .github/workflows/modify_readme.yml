@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - run: sudo apt-get install -y graphicsmagick
-      - uses: jjpaya/example-js-action@v3
+      - uses: jjpaya/example-js-action@v4
         with:
           frase_positiva: 'Los tests han funcionado y lo sabes'
           frase_negativa: 'Los tests han fallado y lo sabes'
