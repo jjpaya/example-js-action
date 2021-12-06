@@ -1,0 +1,38 @@
+name: test and meme
+on:
+  push:
+    branches: [ github_action_readme ]
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Jest 
+        run: npm install jest
+          
+      - name: Run Test
+        run: npm run test
+
+  mod-readme:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: test-run
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - uses: jjpaya/example-js-action@v3
+        with:
+          frase_positiva: 'Los tests han funcionado y lo sabes'
+          frase_negativa: 'Los tests han fallado y lo sabes'
+          resultado_tests: ${{ needs.test-run.result }}
+          
+      - name: Commit repo
+        run: |
+          git add .
+          git commit -m "meme image"
+          git remote set-url origin https://jjpaya:${{ secrets.MEME_TOKEN }}@github.com/jjpaya/example-js-action.git
+          git push
+  
