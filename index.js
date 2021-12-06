@@ -1,31 +1,43 @@
-const core = require('@actions/core');
-//const github = require('@actions/github');
-const TelegramBot = require('node-telegram-bot-api');
+const util = require('util');
+//const core = require('@actions/core');
+const core = {getInput(){return '';},setOutput() {}}
+const memeMaker = util.promisify(require('meme-maker'));
 
-const token = process.env.TELEGRAM_TOKEN;
-const targetChatId = process.env.TELEGRAM_CHAT_ID;
+let fposit = core.getInput('frase_positiva')+'';
+let fnegat = core.getInput('frase_negativa')+'';
+const result = core.getInput('resultado_tests')+'';
 
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
-async function sendMessage() {
-	const who = core.getInput('who-to-greet');
+function splitFrase(f) {
+  if (f.indexOf(' y ') !== -1) {
+    f = f.split(' y ');
+    f[1] = ' y ' + f[1];
+  } else {
+    f = [f];
+  }
 
-	try {
-		await bot.sendMessage(targetChatId, `Workflow ejecutado correctamente tras el último commit. Saludos ${who}`);
-		console.log("Mensaje enviado");
-	} catch (e) {
-		console.error(e);
-		process.exit(1);
-	}
-
-	process.exit(0);
+  return f;
 }
 
-sendMessage();
-/*bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
+async function makeMeme() {
+  const ok = result === 'success';
+  fposit = splitFrase(fposit);
+  fnegat = splitFrase(fnegat);
 
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'Chat id: ' + chatId);
-});*/
+  try {
+    await memeMaker({
+      image: 'res/meme-template.png',
+      outfile: 'res/meme.png',
+      topText: ok ? fposit[0] : fnegat[0],
+      bottomText: (ok ? fposit : fnegat)[1] || '',
+      font: 'res/impact.ttf'
+    });
+  } catch (e) {
+    console.error(e);
+    core.setOutput('result', "Meme NO Añadido al Readme");
+    process.exit(1);
+  }
 
+  core.setOutput('result', "Meme Añadido al Readme");
+}
+
+makeMeme();

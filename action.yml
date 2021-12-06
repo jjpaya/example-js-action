@@ -1,13 +1,18 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Meme generator'
+description: 'Generate a meme with the provided phrases'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  frase_positiva:
+    description: 'Frase positiva'
     required: true
-    default: 'World'
+  frase_negativa:
+    description: 'Frase negativa'
+    required: true
+  resultado_tests:
+    description: 'Resultado tests'
+    required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  result:
+    description: 'Result'
 runs:
   using: 'node12'
   main: 'dist/index.js'
