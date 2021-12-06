@@ -19,7 +19,9 @@ function splitFrase(f) {
 }
 
 async function makeMeme() {
-  console.log(fposit, fnegat, result);
+  console.error(fposit);
+  console.error(fnegat);
+  console.error(result);
   const ok = result === 'success';
   fposit = splitFrase(fposit);
   fnegat = splitFrase(fnegat);
@@ -33,7 +35,7 @@ async function makeMeme() {
       font: 'res/impact.ttf'
     });
   } catch (e) {
-    console.error(e);
+    console.error('Error:', e);
     core.setOutput('result', "Meme NO Añadido al Readme");
     process.exit(1);
   }
