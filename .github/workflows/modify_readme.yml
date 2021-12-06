@@ -32,6 +32,8 @@ jobs:
           
       - name: Commit repo
         run: |
+          git config user.email "actionsbot@github.com"
+          git config user.name "actionsbot"
           git add .
           git commit -m "meme image"
           git remote set-url origin https://jjpaya:${{ secrets.MEME_TOKEN }}@github.com/jjpaya/example-js-action.git
